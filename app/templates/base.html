@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Flask Inventory{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand "> <a href="{{ url_for('inventory') }}">{{company.company_name}}</a></div>
+        <ul class="navbar-nav">
+            <li><a href="{{ url_for('inventory') }}">Inventory</a></li>
+            <li><a href="{{ url_for('add_purchase') }}">Add Purchase</a></li>
+            <li><a href="{{ url_for('add_sale') }}">Add Sale</a></li>
+            <li><a href="{{ url_for('report') }}">Report</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert-container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <h2> Cash Balance : {{company.cash_balance}}</h2>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+<h1 class="page-title">Reports</h1>
+<div class="report-container">
+    <div class="report-section">
+        <h2 class="section-title">Purchase Report</h2>
+        {% if purchase_records %}
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th class="table-header">Item</th>
+                    <th class="table-header">Quantity</th>
+                    <th class="table-header">Buying Price</th>
+                    <th class="table-header">Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for purchase in purchase_records %}
+                <tr>
+                    <td class="table-data">{{ purchase.item.item_name }}</td>
+                    <td class="table-data">{{ purchase.qty }}</td>
+                    <td class="table-data">{{ purchase.rate }}</td>
+                    <td class="table-data">{{ purchase.timestamp }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="alert alert-info" role="alert">
+            No Report.
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="report-section">
+        <h2 class="section-title">Sales Report</h2>
+        {% if sales_records %}
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th class="table-header">Item</th>
+                    <th class="table-header">Quantity</th>
+                    <th class="table-header">Price</th>
+                    <th class="table-header">Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sale in sales_records %}
+                <tr>
+                    <td class="table-data">{{ sale.item.item_name }}</td>
+                    <td class="table-data">{{ sale.qty }}</td>
+                    <td class="table-data">{{ sale.amount }}</td>
+                    <td class="table-data">{{ sale.timestamp }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="alert alert-info" role="alert">
+            No Report.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

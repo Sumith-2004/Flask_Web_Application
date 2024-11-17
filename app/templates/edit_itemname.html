@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Edit Item Name{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Edit Item Name</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="edit_item_name">{{ form.item_name.label }}</label>
+            {{ form.item_name(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-success">Update</button>
+        <a href="{{ url_for('inventory') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

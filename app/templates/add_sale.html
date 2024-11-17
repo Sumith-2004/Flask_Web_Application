@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Add Sale{% endblock %}
+{% block content %}
+<div class="sale-page">
+    <div class="sale-form">
+        <form method="POST" class="sale-form" action="{{ url_for('add_sale') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="item_id" class="form-label">{{ form.item_id.label }}</label>
+                {{ form.item_id(class="form-control", id="item_id_select") }}
+            </div>
+            <div class="form-group">
+                <label for="qty" class="form-label">{{ form.qty.label }}</label>
+                {{ form.qty(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Add to Cart</button>
+        </form>
+    </div>
+    <div class="cart-section">
+        <h3 class="section-title">Sale Cart</h3>
+        {% if sale_cart %}
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th class="table-header">Item Name</th>
+                    <th class="table-header">Quantity</th>
+                    <th class="table-header">Rate</th>
+                    <th class="table-header">Amount</th>
+                    <th class="table-header">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in sale_cart %}
+                <tr>
+                    <td class="table-data">{{ item.item_name }}</td>
+                    <td class="table-data">{{ item.qty }}</td>
+                    <td class="table-data">{{ item.rate }}</td>
+                    <td class="table-data">{{ item.amount }}</td>
+                    <td class="table-actions">
+                        <a href="{{ url_for('edit_sale_cart_item', index=loop.index0) }}" class="btn btn-secondary btn-sm">Edit</a>
+                        <a href="{{ url_for('remove_sale_cart_item', index=loop.index0) }}" class="btn btn-danger btn-sm">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p class="total-amount"><strong>Total Amount:</strong> {{ total_amount }}</p>
+        <form action="{{ url_for('checkout_sale') }}" method="POST" class="checkout-form">
+            <button type="submit" class="btn btn-success">Checkout</button>
+        </form>
+        {% else %}
+        <div class="alert alert-info" role="alert">
+            Add some products to your cart.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+

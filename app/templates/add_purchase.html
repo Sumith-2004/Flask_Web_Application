@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Add Purchase{% endblock %}
+{% block content %}
+<h1 class="my-4">Add Purchase</h1>
+<div class="row">
+    <div class="col-md-6">
+        <h3>Add to Cart</h3>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.item_id.label(class="form-label") }}
+                {{ form.item_id(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.qty.label(class="form-label") }}
+                {{ form.qty(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.buying_price.label(class="form-label") }}
+                {{ form.buying_price(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.selling_price.label(class="form-label") }}
+                {{ form.selling_price(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <h3>Cart</h3>
+        {% if purchase_cart %}
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Buying Price</th>
+                    <th>Selling Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in purchase_cart %}
+                <tr>
+                    <td>{{ item.item_name }}</td>
+                    <td>{{ item.qty }}</td>
+                    <td>{{ item.buying_price }}</td>
+                    <td>{{ item.selling_price }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_cart_item', index=loop.index0) }}" class="btn btn-secondary btn-sm">Edit</a>
+                        <a href="{{ url_for('remove_cart_item', index=loop.index0) }}" class="btn btn-danger btn-sm">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-right">
+            <strong>Total Amount: {{ total_amount }}</strong>
+        </div>
+        <form action="{{ url_for('checkout_purchase') }}" method="POST" class="text-right">
+            <button type="submit" class="btn btn-success">Checkout</button>
+        </form>
+        {% else %}
+        <div class="alert alert-info" role="alert">
+            Add some products to your cart.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

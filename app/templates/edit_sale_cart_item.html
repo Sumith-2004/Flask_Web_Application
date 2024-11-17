@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Edit Sale Cart Item{% endblock %}
+{% block content %}
+<h2>Edit Sale Cart Item</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div>
+        <label>{{ form.item_id.label }}</label>
+        {{ form.item_id(class="form-control") }}
+    </div>
+    <div>
+        <label>{{ form.qty.label }}</label>
+        {{ form.qty(class="form-control") }}
+    </div>
+    <div>
+        <label>{{ form.selling_price.label }}</label>
+        {{ form.selling_price(class="form-control") }}
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Update Item</button>
+</form>
+<a href="{{ url_for('add_sale') }}" class="btn btn-secondary mt-3">Back to Cart</a>
+{% endblock %}
