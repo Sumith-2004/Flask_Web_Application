@@ -11,8 +11,9 @@
                 <tr>
                     <th class="table-header">Item</th>
                     <th class="table-header">Quantity</th>
-                    <th class="table-header">Buying Price</th>
-                    <th class="table-header">Timestamp</th>
+                    <th class="table-header">Buying Price / Unit</th>
+                    <th class="table-header">Total amount</th>
+                    <th class="table-header">Time</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,7 +22,8 @@
                     <td class="table-data">{{ purchase.item.item_name }}</td>
                     <td class="table-data">{{ purchase.qty }}</td>
                     <td class="table-data">{{ purchase.rate }}</td>
-                    <td class="table-data">{{ purchase.timestamp }}</td>
+                    <td class="table-data">{{ purchase.amount }}</td>
+                    <td class="table-data">{{ purchase.timestamp.strftime('%d-%m-%Y %H:%M:%S') }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -41,8 +43,9 @@
                 <tr>
                     <th class="table-header">Item</th>
                     <th class="table-header">Quantity</th>
-                    <th class="table-header">Price</th>
-                    <th class="table-header">Timestamp</th>
+                    <th class="table-header">Selling Price / Unit</th>
+                    <th class="table-header">Total Amount</th>
+                    <th class="table-header">Time</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,10 +53,11 @@
                 <tr>
                     <td class="table-data">{{ sale.item.item_name }}</td>
                     <td class="table-data">{{ sale.qty }}</td>
+                    <td class="table-data">{{ sale.rate }}</td>
                     <td class="table-data">{{ sale.amount }}</td>
-                    <td class="table-data">{{ sale.timestamp }}</td>
+                    <td class="table-data">{{ sale.timestamp.strftime('%d-%m-%Y %H:%M:%S') }}</td>
                 </tr>
-                {% endfor %}
+                {% endfor %} 
             </tbody>
         </table>
         {% else %}

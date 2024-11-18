@@ -9,7 +9,7 @@ def inventory():
     company = Company.query.first()
     form = ItemForm()
     if request.method == 'POST' and 'add_balance' in request.form:
-        add_amount = request.form.get('add_amount')
+        add_amount = request.form.get('add_amount') 
         if add_amount:
             company.cash_balance += float(add_amount)
             db.session.commit()
@@ -18,7 +18,7 @@ def inventory():
     if form.validate_on_submit():
         existing_item = Item.query.filter(Item.item_name.ilike(form.item_name.data.strip())).first()
         if existing_item:
-            flash(f"Item '{form.item_name.data}' already exists!", "warning")
+            flash(f"Item '{form.item_name.data}' already exists!", "danger")
         else:
             new_item = Item(item_name=form.item_name.data, qty=0)
             db.session.add(new_item)
@@ -271,4 +271,9 @@ def report():
     company = Company.query.first()
     purchase_records = Purchase.query.all()
     sales_records = Sales.query.all()
-    return render_template('report.html', purchase_records=purchase_records, sales_records=sales_records, company= company)
+    return render_template(
+        'report.html',
+        purchase_records=purchase_records,
+        sales_records=sales_records,
+        company=company
+    )
